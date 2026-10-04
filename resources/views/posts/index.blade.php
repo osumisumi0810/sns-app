@@ -15,6 +15,10 @@
             @endif
 
             @foreach ($posts as $post)
+                <a href="{{ route('users.show', $post->user) }}" class="font-semibold text-gray-700 hover:text-gray-900">
+                    {{ $post->user->name }}
+                </a>
+                
                 <div class="bg-white rounded-lg shadow-md p-4 mb-6">
                     {{-- ユーザー名 --}}
                     <div class="text-sm text-gray-600 font-semibold mb-2">

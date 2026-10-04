@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,6 +39,9 @@ Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.e
 
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+
+Route::get('/users/{user}/posts', [UserController::class, 'posts'])->name('users.posts');
 
 
 require __DIR__.'/auth.php';
