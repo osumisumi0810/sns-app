@@ -33,5 +33,23 @@ class UserController extends Controller
         return back();
     }
 
+    public function edit(User $user){
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user){
+        $request->validate([
+            'name' => 'required|max:50',
+            'bio' => 'nullable|max:200',
+        ]);
+
+        $user->name = $request->name;
+        $user->bio = $request->bio;
+        $user->save();
+
+        return redirect()->route('users.show', $user)->with('success', 'プロフィールを更新しました！');
+    }
+
+
 
 }

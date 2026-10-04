@@ -46,5 +46,9 @@ Route::get('/users/{user}/posts', [UserController::class, 'posts'])->name('users
 Route::post('/users/{user}/profile-image', [UserController::class, 'updateImage'])
     ->name('users.update_image');
 
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+
+Route::post('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
 
 require __DIR__.'/auth.php';

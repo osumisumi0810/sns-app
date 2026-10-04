@@ -23,11 +23,18 @@
         </button>
         </form>
 
+        <a href="{{ route('users.edit', $user) }}"
+        class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 mt-4 inline-block">
+            プロフィールを編集
+        </a>
 
-        {{-- 自己紹介（まだ未実装） --}}
-        <p class="text-gray-700 text-center mb-6">
-            自己紹介はまだ設定されていません。
-        </p>
+
+
+        {{-- 自己紹介 --}}
+        @if ($user->bio)
+            <p class="text-gray-700 mt-4 whitespace-pre-line">{{ $user->bio }}</p>
+        @endif
+
 
         {{-- 自分の投稿一覧へのリンク（Myページ） --}}
         <div class="text-center">
