@@ -43,5 +43,8 @@ Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show')
 
 Route::get('/users/{user}/posts', [UserController::class, 'posts'])->name('users.posts');
 
+Route::post('/users/{user}/profile-image', [UserController::class, 'updateImage'])
+    ->name('users.update_image');
+
 
 require __DIR__.'/auth.php';

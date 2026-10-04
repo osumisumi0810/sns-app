@@ -15,14 +15,19 @@
             @endif
 
             @foreach ($posts as $post)
-                <a href="{{ route('users.show', $post->user) }}" class="font-semibold text-gray-700 hover:text-gray-900">
-                    {{ $post->user->name }}
-                </a>
-                
                 <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-                    {{-- ユーザー名 --}}
-                    <div class="text-sm text-gray-600 font-semibold mb-2">
-                        {{ $post->user->name }}
+                    {{-- ユーザー名＋アイコン --}}
+                    <div class="flex items-center gap-3 mb-3">
+                        @if ($post->user->profile_image)
+                            <img src="{{ asset('storage/' . $post->user->profile_image) }}"
+                                class="w-10 h-10 rounded-full object-cover">
+                        @else
+                            <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+                        @endif
+
+                        <a href="{{ route('users.show', $post->user) }}" class="font-semibold text-gray-800 hover:text-gray-900">
+                            {{ $post->user->name }}
+                        </a>
                     </div>
 
                     {{-- 本文 --}}
@@ -53,7 +58,6 @@
                         </div>
                     @endif
 
-
                     {{-- 削除ボタン（自分の投稿だけ表示） --}}
                     @if ($post->user_id === auth()->id())
                         <form action="{{ route('posts.destroy', $post) }}" method="POST" class="text-right mt-2">
@@ -64,7 +68,6 @@
                             </button>
                         </form>
                     @endif
-
                 </div>
             @endforeach
 
