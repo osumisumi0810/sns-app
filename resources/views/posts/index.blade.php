@@ -1,4 +1,9 @@
 <x-app-layout>
+    <a href="{{ route('posts.create') }}"
+    class="fixed bottom-6 right-6 bg-blue-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg text-3xl hover:bg-blue-600">
+    ＋
+    </a>
+
     <div class="py-6">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
 
