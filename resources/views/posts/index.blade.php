@@ -2,6 +2,13 @@
     <div class="py-6">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
 
+            {{-- 成功メッセージ（削除後に表示） --}}
+            @if (session('success'))
+                <div class="bg-green-500 text-white text-sm font-semibold px-4 py-2 rounded mb-4 shadow-md">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @foreach ($posts as $post)
                 <div class="bg-white rounded-lg shadow-md p-4 mb-6">
                     {{-- ユーザー名 --}}
@@ -27,6 +34,28 @@
                     <div class="text-xs text-gray-500 text-right">
                         投稿日：{{ $post->created_at->format('Y/m/d H:i') }}
                     </div>
+
+                    {{-- 編集ボタン（自分の投稿だけ表示） --}}
+                    @if ($post->user_id === auth()->id())
+                        <div class="text-right mt-2">
+                            <a href="{{ route('posts.edit', $post) }}" class="text-blue-500 text-sm hover:text-blue-700">
+                                編集
+                            </a>
+                        </div>
+                    @endif
+
+
+                    {{-- 削除ボタン（自分の投稿だけ表示） --}}
+                    @if ($post->user_id === auth()->id())
+                        <form action="{{ route('posts.destroy', $post) }}" method="POST" class="text-right mt-2">
+                            @csrf
+                            @method('DELETE')
+                            <button class="text-red-500 text-sm hover:text-red-700">
+                                削除
+                            </button>
+                        </form>
+                    @endif
+
                 </div>
             @endforeach
 

@@ -30,5 +30,13 @@ Route::get('/posts', [PostController::class, 'index'])
     ->middleware(['auth'])
     ->name('posts.index');
 
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+    ->name('posts.destroy');
+
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
+
 
 require __DIR__.'/auth.php';
