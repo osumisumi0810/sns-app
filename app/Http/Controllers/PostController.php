@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Like;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+
 
 class PostController extends Controller
 {
@@ -49,6 +51,7 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', '投稿を削除しました');
     }
 
+
     public function edit(Post $post){
         if ($post->user_id !== auth()->id()) {
             abort(403);
@@ -56,6 +59,7 @@ class PostController extends Controller
 
         return view('posts.edit', compact('post'));
     }
+
 
     public function update(Request $request, Post $post){
         if ($post->user_id !== auth()->id()) {
@@ -85,7 +89,6 @@ class PostController extends Controller
     }
 
 
-
     public function index(){
         $posts = Post::with('user')
             ->orderBy('created_at', 'desc')
@@ -94,6 +97,24 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
+
+    public function like(Post $post){
+        Like::firstOrCreate([
+            'user_id' => auth()->id(),
+            'post_id' => $post->id,
+        ]);
+
+        return back();
+    }
+
+
+    public function unlike(Post $post){
+        Like::where('user_id', auth()->id())
+            ->where('post_id', $post->id)
+            ->delete();
+
+        return back();
+    }
 
 
 }

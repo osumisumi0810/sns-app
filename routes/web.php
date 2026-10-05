@@ -50,5 +50,9 @@ Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.e
 
 Route::post('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
+Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
+
+Route::post('/posts/{post}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
+
 
 require __DIR__.'/auth.php';

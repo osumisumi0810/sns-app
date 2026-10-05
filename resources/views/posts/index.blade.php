@@ -44,6 +44,22 @@
                     </div>
                     @endif
 
+                    @php
+                        $liked = $post->likes->contains('user_id', auth()->id());
+                    @endphp
+
+                    @if ($liked)
+                        <form action="{{ route('posts.unlike', $post) }}" method="POST">
+                            @csrf
+                            <button class="text-red-500">❤️ {{ $post->likes->count() }}</button>
+                        </form>
+                    @else
+                        <form action="{{ route('posts.like', $post) }}" method="POST">
+                            @csrf
+                            <button class="text-gray-500">♡ {{ $post->likes->count() }}</button>
+                        </form>
+                    @endif
+
                     {{-- 投稿日 --}}
                     <div class="text-xs text-gray-500 text-right">
                         投稿日：{{ $post->created_at->format('Y/m/d H:i') }}
