@@ -54,5 +54,10 @@ Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.
 
 Route::post('/posts/{post}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
 
+Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('posts.comment');
+
+Route::delete('/comments/{comment}', [PostController::class, 'commentDelete'])->name('comments.delete');
+
+
 
 require __DIR__.'/auth.php';

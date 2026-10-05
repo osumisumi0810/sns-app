@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Like;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -116,5 +117,19 @@ class PostController extends Controller
         return back();
     }
 
+    public function comment(Post $post){
+        Comment::create([
+            'user_id' => auth()->id(),
+            'post_id' => $post->id,
+            'body' => request('body'),
+        ]);
+
+        return back();
+    }
+
+    public function commentDelete(Comment $comment){
+        $comment->delete();
+        return back();
+    }
 
 }

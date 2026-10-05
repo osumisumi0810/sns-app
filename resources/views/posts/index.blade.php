@@ -60,6 +60,27 @@
                         </form>
                     @endif
 
+                    <form action="{{ route('posts.comment', $post) }}" method="POST" class="mt-2">
+                        @csrf
+                        <input type="text" name="body" placeholder="コメントを書く" class="border p-1 w-full">
+                        <button class="text-blue-500 mt-1">送信</button>
+                    </form>
+
+                    @foreach ($post->comments as $comment)
+                        <div class="text-sm mt-1 border-l pl-2">
+                            <strong>{{ $comment->user->name }}</strong>  
+                            {{ $comment->body }}
+
+                            <form action="{{ route('comments.delete', $comment) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-red-500 text-xs ml-2">削除</button>
+                            </form>
+                        </div>
+                    @endforeach
+
+
+
                     {{-- 投稿日 --}}
                     <div class="text-xs text-gray-500 text-right">
                         投稿日：{{ $post->created_at->format('Y/m/d H:i') }}
