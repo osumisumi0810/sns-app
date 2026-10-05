@@ -107,7 +107,9 @@
                     @endif
                 </div>
             @endforeach
-
+        
+        {{-- ページネーション --}}
+        {{ $posts->links() }}
         </div>
     </div>
 </x-app-layout>
